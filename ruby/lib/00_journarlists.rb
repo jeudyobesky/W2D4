@@ -3,16 +3,16 @@
 def calcul_number_of_journalist
     p @list_journalist.length
 end
-# connaitre la lenght de tous les élements du tableau
-# mettre tout ces chiffres dans un autre tableau
-# recuperer le petit élément de ce tableau
+
 
 def who_has_less_caracters
-    p @list_journalist.min
+    f = @list_journalist.sort {|x,y| x.length <=> y.length}
+    p f.first
 end
 
 def get_6_chars
     array = []
+# création d'un nouveau array pour mieux trier
     @list_journalist.each do |journalist|
         if journalist.length == 6
             array << journalist
@@ -23,21 +23,75 @@ end
 
 
 def get_chars_in_uppercase
-    array = []
-    @list_journalist.each do |journalist|
-        if journalist == journalist.capitalize
-            array << journalist
-        end
-    end
-    p "#{array.length} journalistes ont le nom qui commence par une majuscule"
-    
+    f = @list_journalist.select { |word| word.start_with? (/@[[:upper:]]/) }
+    p f.count # compte des mots    
+   
 end
 
+def list_by_alphabetical_order
+    p @list_journalist.sort {|a,b| a.downcase<=>b.downcase}
+    #.downcase pour les trier peut importe majuscule ou pas
+end
+
+
+def list_by_who_has_less_caracters
+    p @list_journalist.sort {|x,y| x.length <=> y.length}
+end
+
+def show_index_of_a_value
+    p @list_journalist.find_index("@epenser") 
+end     
+
+
+def list_by_characters_length
+    f = @list_journalist.sort {|x,y| x.length <=> y.length}
+ 
+end
+
+
 def perform
-    calcul_number_of_journalist
+    puts ""
+    puts ""
+    puts " Combien y a-t-il de handle dans cette array ? "
+    puts ">"
+    calcul_number_of_journalist 
+    puts ""
+    puts ""
+    puts " Quel est le handle le plus court de cette liste ? "
+    puts ">"
     who_has_less_caracters
+    puts ""
+    puts ""
+    puts " Combien y-a-t'il de handle contenant 5 caractères (le @ ne compte pas pour un caractère) "
+    puts ">"
     get_6_chars
+    puts ""
+    puts ""
+    puts " Combien commencent par une majuscule (première lettre juste après le @) ? "
+    puts ">"
     get_chars_in_uppercase
+    puts ""
+    puts ""
+    puts " Trie la liste de handle par ordre alphabétique. "
+    print ">"
+    list_by_alphabetical_order
+    puts ""
+    puts ""
+    puts " Trie la liste de handle par taille des handle (les plus petits en premiers, les plus grands après) "
+    puts ">"
+    list_by_who_has_less_caracters 
+    puts ""
+    puts ""
+    puts " Quelle est la position dans l'array de la personne @epenser ? "
+    puts ">"
+    show_index_of_a_value 
+    puts ""
+    puts ""
+    puts " Voir la répartition des handle par taille de ces derniers "
+    puts ">"
+    list_by_characters_length  
+    puts ""
+    puts "" 
 end
 
 perform
